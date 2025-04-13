@@ -1,0 +1,20 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
+import { PrismaClient } from 'generated/prisma'; 
+
+@Injectable()
+// eslint-disable-next-line prettier/prettier
+export class PrismaService
+  extends PrismaClient
+  implements OnModuleInit, OnModuleDestroy
+{
+  async onModuleInit() {
+    await this.$connect();
+  }
+
+  async onModuleDestroy() {
+    await this.$disconnect();
+  }
+}
+
+
