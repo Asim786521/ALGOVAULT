@@ -126,6 +126,39 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ProblemScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  topic: 'topic',
+  difficulty: 'difficulty',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProgressScalarFieldEnum = {
+  id: 'id',
+  solved: 'solved',
+  solvedAt: 'solvedAt',
+  userId: 'userId',
+  problemId: 'problemId'
+};
+
+exports.Prisma.AchievementScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  achievedAt: 'achievedAt',
+  userId: 'userId'
+};
+
+exports.Prisma.LeaderboardScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  rank: 'rank',
+  points: 'points',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -135,13 +168,22 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
 exports.Role = exports.$Enums.Role = {
   USER: 'USER',
   ADMIN: 'ADMIN'
 };
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Problem: 'Problem',
+  Progress: 'Progress',
+  Achievement: 'Achievement',
+  Leaderboard: 'Leaderboard'
 };
 
 /**
