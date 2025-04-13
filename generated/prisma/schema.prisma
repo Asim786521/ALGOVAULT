@@ -1,6 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
+//
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
@@ -16,15 +16,62 @@ datasource db {
 
 // prisma/schema.prisma
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String        @id @default(uuid())
+  email        String        @unique
+  password     String
+  role         Role          @default(USER)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  progress     Progress[]
+  achievements Achievement[]
+  leaderboard  Leaderboard[]
 }
 
 enum Role {
   USER
   ADMIN
+}
+
+model Problem {
+  id          String   @id @default(uuid())
+  title       String
+  topic       String
+  difficulty  String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  progress Progress[]
+}
+
+model Progress {
+  id        String    @id @default(uuid())
+  solved    Boolean   @default(false)
+  solvedAt  DateTime?
+  userId    String
+  problemId String
+
+  user    User    @relation(fields: [userId], references: [id])
+  problem Problem @relation(fields: [problemId], references: [id])
+
+  @@unique([userId, problemId]) // Ensure a user can only have one progress entry per problem
+}
+
+model Achievement {
+  id         String   @id @default(uuid())
+  name       String
+  achievedAt DateTime @default(now())
+  userId     String
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Leaderboard {
+  id        String   @id @default(uuid())
+  userId    String
+  rank      Int
+  points    Int
+  updatedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
 }
