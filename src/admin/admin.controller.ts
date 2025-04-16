@@ -5,11 +5,12 @@ import { RolesGuard } from "src/common/guards/roles.guard";
 import { UsersService } from "src/users/user.service";
 import { ProblemDTO } from "./dto/problem.dto";
 import { AdminService } from "./admin.service";
+import { JwtAuthGuard } from "src/common/guards/jwt-auth.guard";
 
 
 @Controller('admin')
 @Roles(Role.ADMIN)
-@UseGuards(RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class AdminController {
 
     constructor(private readonly userSerivce: UsersService,private readonly adminService: AdminService) { }

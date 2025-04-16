@@ -1,14 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { JwtPayload } from './dto/jwt.dto';
 
-export interface JwtPayload {
-  sub: string;  // This is typically the user ID or a unique identifier
-  email: string;
-  role: string;  // The role of the user (e.g., 'USER', 'ADMIN')
-  iat: number;   // Issued at (optional)
-  exp: number;   // Expiration (optional)
-}
+
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -20,7 +15,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   
-  async validate(payload: JwtPayload) {
+   validate(payload: JwtPayload) {
     return { userId: payload.sub, email: payload.email, role: payload.role };
   }
   
