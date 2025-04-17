@@ -44,18 +44,26 @@ model Problem {
   progress    Progress[]
 }
 
+enum ProgressStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
 model Progress {
-  id        String   @id @default(uuid())
-  solved    Boolean  @default(false)
+  id        String           @id @default(uuid())
+  solved    Boolean          @default(false)
   solvedAt  DateTime?
   userId    String
   problemId String
+  status    ProgressStatus?  // Using enum for status
 
-  user      User     @relation(fields: [userId], references: [id])
-  problem   Problem  @relation(fields: [problemId], references: [id])
+  user      User             @relation(fields: [userId], references: [id])
+  problem   Problem          @relation(fields: [problemId], references: [id])
 
   @@unique([userId, problemId]) // Ensure a user can only have one progress entry per problem
 }
+
 
 model Achievement {
   id        String   @id @default(uuid())

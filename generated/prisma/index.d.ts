@@ -50,11 +50,24 @@ export namespace $Enums {
 
 export type Role = (typeof Role)[keyof typeof Role]
 
+
+export const ProgressStatus: {
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED'
+};
+
+export type ProgressStatus = (typeof ProgressStatus)[keyof typeof ProgressStatus]
+
 }
 
 export type Role = $Enums.Role
 
 export const Role: typeof $Enums.Role
+
+export type ProgressStatus = $Enums.ProgressStatus
+
+export const ProgressStatus: typeof $Enums.ProgressStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -3580,6 +3593,7 @@ export namespace Prisma {
     solvedAt: Date | null
     userId: string | null
     problemId: string | null
+    status: $Enums.ProgressStatus | null
   }
 
   export type ProgressMaxAggregateOutputType = {
@@ -3588,6 +3602,7 @@ export namespace Prisma {
     solvedAt: Date | null
     userId: string | null
     problemId: string | null
+    status: $Enums.ProgressStatus | null
   }
 
   export type ProgressCountAggregateOutputType = {
@@ -3596,6 +3611,7 @@ export namespace Prisma {
     solvedAt: number
     userId: number
     problemId: number
+    status: number
     _all: number
   }
 
@@ -3606,6 +3622,7 @@ export namespace Prisma {
     solvedAt?: true
     userId?: true
     problemId?: true
+    status?: true
   }
 
   export type ProgressMaxAggregateInputType = {
@@ -3614,6 +3631,7 @@ export namespace Prisma {
     solvedAt?: true
     userId?: true
     problemId?: true
+    status?: true
   }
 
   export type ProgressCountAggregateInputType = {
@@ -3622,6 +3640,7 @@ export namespace Prisma {
     solvedAt?: true
     userId?: true
     problemId?: true
+    status?: true
     _all?: true
   }
 
@@ -3703,6 +3722,7 @@ export namespace Prisma {
     solvedAt: Date | null
     userId: string
     problemId: string
+    status: $Enums.ProgressStatus | null
     _count: ProgressCountAggregateOutputType | null
     _min: ProgressMinAggregateOutputType | null
     _max: ProgressMaxAggregateOutputType | null
@@ -3728,6 +3748,7 @@ export namespace Prisma {
     solvedAt?: boolean
     userId?: boolean
     problemId?: boolean
+    status?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     problem?: boolean | ProblemDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["progress"]>
@@ -3738,6 +3759,7 @@ export namespace Prisma {
     solvedAt?: boolean
     userId?: boolean
     problemId?: boolean
+    status?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     problem?: boolean | ProblemDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["progress"]>
@@ -3748,6 +3770,7 @@ export namespace Prisma {
     solvedAt?: boolean
     userId?: boolean
     problemId?: boolean
+    status?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     problem?: boolean | ProblemDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["progress"]>
@@ -3758,9 +3781,10 @@ export namespace Prisma {
     solvedAt?: boolean
     userId?: boolean
     problemId?: boolean
+    status?: boolean
   }
 
-  export type ProgressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "solved" | "solvedAt" | "userId" | "problemId", ExtArgs["result"]["progress"]>
+  export type ProgressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "solved" | "solvedAt" | "userId" | "problemId" | "status", ExtArgs["result"]["progress"]>
   export type ProgressInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     problem?: boolean | ProblemDefaultArgs<ExtArgs>
@@ -3786,6 +3810,7 @@ export namespace Prisma {
       solvedAt: Date | null
       userId: string
       problemId: string
+      status: $Enums.ProgressStatus | null
     }, ExtArgs["result"]["progress"]>
     composites: {}
   }
@@ -4216,6 +4241,7 @@ export namespace Prisma {
     readonly solvedAt: FieldRef<"Progress", 'DateTime'>
     readonly userId: FieldRef<"Progress", 'String'>
     readonly problemId: FieldRef<"Progress", 'String'>
+    readonly status: FieldRef<"Progress", 'ProgressStatus'>
   }
     
 
@@ -6815,7 +6841,8 @@ export namespace Prisma {
     solved: 'solved',
     solvedAt: 'solvedAt',
     userId: 'userId',
-    problemId: 'problemId'
+    problemId: 'problemId',
+    status: 'status'
   };
 
   export type ProgressScalarFieldEnum = (typeof ProgressScalarFieldEnum)[keyof typeof ProgressScalarFieldEnum]
@@ -6917,6 +6944,20 @@ export namespace Prisma {
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'ProgressStatus'
+   */
+  export type EnumProgressStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProgressStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ProgressStatus[]'
+   */
+  export type ListEnumProgressStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProgressStatus[]'>
     
 
 
@@ -7091,6 +7132,7 @@ export namespace Prisma {
     solvedAt?: DateTimeNullableFilter<"Progress"> | Date | string | null
     userId?: StringFilter<"Progress"> | string
     problemId?: StringFilter<"Progress"> | string
+    status?: EnumProgressStatusNullableFilter<"Progress"> | $Enums.ProgressStatus | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     problem?: XOR<ProblemScalarRelationFilter, ProblemWhereInput>
   }
@@ -7101,6 +7143,7 @@ export namespace Prisma {
     solvedAt?: SortOrderInput | SortOrder
     userId?: SortOrder
     problemId?: SortOrder
+    status?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     problem?: ProblemOrderByWithRelationInput
   }
@@ -7115,6 +7158,7 @@ export namespace Prisma {
     solvedAt?: DateTimeNullableFilter<"Progress"> | Date | string | null
     userId?: StringFilter<"Progress"> | string
     problemId?: StringFilter<"Progress"> | string
+    status?: EnumProgressStatusNullableFilter<"Progress"> | $Enums.ProgressStatus | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     problem?: XOR<ProblemScalarRelationFilter, ProblemWhereInput>
   }, "id" | "userId_problemId">
@@ -7125,6 +7169,7 @@ export namespace Prisma {
     solvedAt?: SortOrderInput | SortOrder
     userId?: SortOrder
     problemId?: SortOrder
+    status?: SortOrderInput | SortOrder
     _count?: ProgressCountOrderByAggregateInput
     _max?: ProgressMaxOrderByAggregateInput
     _min?: ProgressMinOrderByAggregateInput
@@ -7139,6 +7184,7 @@ export namespace Prisma {
     solvedAt?: DateTimeNullableWithAggregatesFilter<"Progress"> | Date | string | null
     userId?: StringWithAggregatesFilter<"Progress"> | string
     problemId?: StringWithAggregatesFilter<"Progress"> | string
+    status?: EnumProgressStatusNullableWithAggregatesFilter<"Progress"> | $Enums.ProgressStatus | null
   }
 
   export type AchievementWhereInput = {
@@ -7401,6 +7447,7 @@ export namespace Prisma {
     id?: string
     solved?: boolean
     solvedAt?: Date | string | null
+    status?: $Enums.ProgressStatus | null
     user: UserCreateNestedOneWithoutProgressInput
     problem: ProblemCreateNestedOneWithoutProgressInput
   }
@@ -7411,12 +7458,14 @@ export namespace Prisma {
     solvedAt?: Date | string | null
     userId: string
     problemId: string
+    status?: $Enums.ProgressStatus | null
   }
 
   export type ProgressUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     solved?: BoolFieldUpdateOperationsInput | boolean
     solvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: NullableEnumProgressStatusFieldUpdateOperationsInput | $Enums.ProgressStatus | null
     user?: UserUpdateOneRequiredWithoutProgressNestedInput
     problem?: ProblemUpdateOneRequiredWithoutProgressNestedInput
   }
@@ -7427,6 +7476,7 @@ export namespace Prisma {
     solvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: StringFieldUpdateOperationsInput | string
     problemId?: StringFieldUpdateOperationsInput | string
+    status?: NullableEnumProgressStatusFieldUpdateOperationsInput | $Enums.ProgressStatus | null
   }
 
   export type ProgressCreateManyInput = {
@@ -7435,12 +7485,14 @@ export namespace Prisma {
     solvedAt?: Date | string | null
     userId: string
     problemId: string
+    status?: $Enums.ProgressStatus | null
   }
 
   export type ProgressUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     solved?: BoolFieldUpdateOperationsInput | boolean
     solvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: NullableEnumProgressStatusFieldUpdateOperationsInput | $Enums.ProgressStatus | null
   }
 
   export type ProgressUncheckedUpdateManyInput = {
@@ -7449,6 +7501,7 @@ export namespace Prisma {
     solvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: StringFieldUpdateOperationsInput | string
     problemId?: StringFieldUpdateOperationsInput | string
+    status?: NullableEnumProgressStatusFieldUpdateOperationsInput | $Enums.ProgressStatus | null
   }
 
   export type AchievementCreateInput = {
@@ -7732,6 +7785,13 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type EnumProgressStatusNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProgressStatus | EnumProgressStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ProgressStatus[] | ListEnumProgressStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ProgressStatus[] | ListEnumProgressStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumProgressStatusNullableFilter<$PrismaModel> | $Enums.ProgressStatus | null
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -7758,6 +7818,7 @@ export namespace Prisma {
     solvedAt?: SortOrder
     userId?: SortOrder
     problemId?: SortOrder
+    status?: SortOrder
   }
 
   export type ProgressMaxOrderByAggregateInput = {
@@ -7766,6 +7827,7 @@ export namespace Prisma {
     solvedAt?: SortOrder
     userId?: SortOrder
     problemId?: SortOrder
+    status?: SortOrder
   }
 
   export type ProgressMinOrderByAggregateInput = {
@@ -7774,6 +7836,7 @@ export namespace Prisma {
     solvedAt?: SortOrder
     userId?: SortOrder
     problemId?: SortOrder
+    status?: SortOrder
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -7796,6 +7859,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumProgressStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProgressStatus | EnumProgressStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ProgressStatus[] | ListEnumProgressStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ProgressStatus[] | ListEnumProgressStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumProgressStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.ProgressStatus | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumProgressStatusNullableFilter<$PrismaModel>
+    _max?: NestedEnumProgressStatusNullableFilter<$PrismaModel>
   }
 
   export type AchievementCountOrderByAggregateInput = {
@@ -8080,6 +8153,10 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
+  export type NullableEnumProgressStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ProgressStatus | null
+  }
+
   export type UserUpdateOneRequiredWithoutProgressNestedInput = {
     create?: XOR<UserCreateWithoutProgressInput, UserUncheckedCreateWithoutProgressInput>
     connectOrCreate?: UserCreateOrConnectWithoutProgressInput
@@ -8232,6 +8309,13 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type NestedEnumProgressStatusNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProgressStatus | EnumProgressStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ProgressStatus[] | ListEnumProgressStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ProgressStatus[] | ListEnumProgressStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumProgressStatusNullableFilter<$PrismaModel> | $Enums.ProgressStatus | null
+  }
+
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
@@ -8265,6 +8349,16 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedEnumProgressStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProgressStatus | EnumProgressStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ProgressStatus[] | ListEnumProgressStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ProgressStatus[] | ListEnumProgressStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumProgressStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.ProgressStatus | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumProgressStatusNullableFilter<$PrismaModel>
+    _max?: NestedEnumProgressStatusNullableFilter<$PrismaModel>
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -8296,6 +8390,7 @@ export namespace Prisma {
     id?: string
     solved?: boolean
     solvedAt?: Date | string | null
+    status?: $Enums.ProgressStatus | null
     problem: ProblemCreateNestedOneWithoutProgressInput
   }
 
@@ -8304,6 +8399,7 @@ export namespace Prisma {
     solved?: boolean
     solvedAt?: Date | string | null
     problemId: string
+    status?: $Enums.ProgressStatus | null
   }
 
   export type ProgressCreateOrConnectWithoutUserInput = {
@@ -8387,6 +8483,7 @@ export namespace Prisma {
     solvedAt?: DateTimeNullableFilter<"Progress"> | Date | string | null
     userId?: StringFilter<"Progress"> | string
     problemId?: StringFilter<"Progress"> | string
+    status?: EnumProgressStatusNullableFilter<"Progress"> | $Enums.ProgressStatus | null
   }
 
   export type AchievementUpsertWithWhereUniqueWithoutUserInput = {
@@ -8446,6 +8543,7 @@ export namespace Prisma {
     id?: string
     solved?: boolean
     solvedAt?: Date | string | null
+    status?: $Enums.ProgressStatus | null
     user: UserCreateNestedOneWithoutProgressInput
   }
 
@@ -8454,6 +8552,7 @@ export namespace Prisma {
     solved?: boolean
     solvedAt?: Date | string | null
     userId: string
+    status?: $Enums.ProgressStatus | null
   }
 
   export type ProgressCreateOrConnectWithoutProblemInput = {
@@ -8723,6 +8822,7 @@ export namespace Prisma {
     solved?: boolean
     solvedAt?: Date | string | null
     problemId: string
+    status?: $Enums.ProgressStatus | null
   }
 
   export type AchievementCreateManyUserInput = {
@@ -8742,6 +8842,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     solved?: BoolFieldUpdateOperationsInput | boolean
     solvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: NullableEnumProgressStatusFieldUpdateOperationsInput | $Enums.ProgressStatus | null
     problem?: ProblemUpdateOneRequiredWithoutProgressNestedInput
   }
 
@@ -8750,6 +8851,7 @@ export namespace Prisma {
     solved?: BoolFieldUpdateOperationsInput | boolean
     solvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     problemId?: StringFieldUpdateOperationsInput | string
+    status?: NullableEnumProgressStatusFieldUpdateOperationsInput | $Enums.ProgressStatus | null
   }
 
   export type ProgressUncheckedUpdateManyWithoutUserInput = {
@@ -8757,6 +8859,7 @@ export namespace Prisma {
     solved?: BoolFieldUpdateOperationsInput | boolean
     solvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     problemId?: StringFieldUpdateOperationsInput | string
+    status?: NullableEnumProgressStatusFieldUpdateOperationsInput | $Enums.ProgressStatus | null
   }
 
   export type AchievementUpdateWithoutUserInput = {
@@ -8803,12 +8906,14 @@ export namespace Prisma {
     solved?: boolean
     solvedAt?: Date | string | null
     userId: string
+    status?: $Enums.ProgressStatus | null
   }
 
   export type ProgressUpdateWithoutProblemInput = {
     id?: StringFieldUpdateOperationsInput | string
     solved?: BoolFieldUpdateOperationsInput | boolean
     solvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: NullableEnumProgressStatusFieldUpdateOperationsInput | $Enums.ProgressStatus | null
     user?: UserUpdateOneRequiredWithoutProgressNestedInput
   }
 
@@ -8817,6 +8922,7 @@ export namespace Prisma {
     solved?: BoolFieldUpdateOperationsInput | boolean
     solvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: StringFieldUpdateOperationsInput | string
+    status?: NullableEnumProgressStatusFieldUpdateOperationsInput | $Enums.ProgressStatus | null
   }
 
   export type ProgressUncheckedUpdateManyWithoutProblemInput = {
@@ -8824,6 +8930,7 @@ export namespace Prisma {
     solved?: BoolFieldUpdateOperationsInput | boolean
     solvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: StringFieldUpdateOperationsInput | string
+    status?: NullableEnumProgressStatusFieldUpdateOperationsInput | $Enums.ProgressStatus | null
   }
 
 

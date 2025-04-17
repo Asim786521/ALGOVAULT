@@ -141,7 +141,8 @@ exports.Prisma.ProgressScalarFieldEnum = {
   solved: 'solved',
   solvedAt: 'solvedAt',
   userId: 'userId',
-  problemId: 'problemId'
+  problemId: 'problemId',
+  status: 'status'
 };
 
 exports.Prisma.AchievementScalarFieldEnum = {
@@ -176,6 +177,12 @@ exports.Prisma.NullsOrder = {
 exports.Role = exports.$Enums.Role = {
   USER: 'USER',
   ADMIN: 'ADMIN'
+};
+
+exports.ProgressStatus = exports.$Enums.ProgressStatus = {
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED'
 };
 
 exports.Prisma.ModelName = {
