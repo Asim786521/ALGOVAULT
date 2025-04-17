@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { uploadDTO } from './dto/upload.dto';
  
 import { Prisma, ProgressStatus } from 'generated/prisma';
+import { FilterProblemsDto } from './dto/filter-problems.dto';
  
 
 @Injectable()
@@ -32,27 +33,34 @@ export class UsersService {
   }
 
   async uploadSolvedProblem(dto: uploadDTO) {
+    if (!dto.userId || !dto.problemId) {
+      throw new Error('userId and problemId are required.');
+    }
+  
     const solvedData = await this.prisma.progress.upsert({
       where: {
         userId_problemId: {
-          userId: dto.userId,
+          userId: dto.userId, 
           problemId: dto.problemId,
         },
       },
       update: {
-        solved: dto.solved,
-        solvedAt: dto.solved ? new Date() : null,
+        solved: true,
+        status:ProgressStatus.COMPLETED,
+        solvedAt: new Date(),
       },
       create: {
         userId: dto.userId,
         problemId: dto.problemId,
-        solved: dto.solved,
-        solvedAt: dto.solved ? new Date() : null,
+        status:ProgressStatus.COMPLETED,
+        solved: true,
+        solvedAt: new Date(),
       },
     });
   
-    return { message: 'Progress recorded successfully', data: solvedData };
+    return solvedData;
   }
+  
   async getProgressData(
     userId: string,
     status?: ProgressStatus,
@@ -60,29 +68,60 @@ export class UsersService {
     to?: string,
     page: number = 1,
     limit: number = 10,
+    orderBy: 'asc' | 'desc' = 'desc'
   ) {
+   
     const filters: Prisma.ProgressWhereInput = {
       userId,
-      ...(status !== undefined && { status: status }),  
-      ...(from && { solvedAt: { gte: new Date(from) } }),  
-      ...(to && { solvedAt: { lte: new Date(to) } }), 
     };
-
-    const [progress, total] = await this.prisma.progress.findMany({
+  
+    if (status) {
+      filters.status = status;
+    }
+  
+    if (from || to) {
+      filters.solvedAt = {};
+  
+      if (from) {
+        filters.solvedAt.gte = new Date(from);
+      }
+  
+      if (to) {
+        filters.solvedAt.lte = new Date(to);
+      }
+    }
+  
+    // 1. Total count
+    const totalCount = await this.prisma.progress.count({
       where: filters,
-      skip: (page - 1) * limit,  // Pagination
-      take: limit,  // Limit results
+    });
+  
+    // 2. Paginated data
+    const content = await this.prisma.progress.findMany({
+      where: filters,
+      skip: (page - 1) * limit,
+      take: limit,
       orderBy: {
-        solvedAt: 'desc', // Order by solved date (optional)
+        solvedAt:orderBy,
+      },
+      include: {
+        problem: true,
+        
+         // Include related problem details
       },
     });
-
+  
     return {
-      data: progress,
-      totalCount: total,
-      page,
-      limit,
+      content,
+      meta: {
+        totalCount,
+        currentPage: page,
+        limit,
+        totalPages: Math.ceil(totalCount / limit),
+      },
     };
   }
+  
+  
 }
 

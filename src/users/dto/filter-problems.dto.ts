@@ -1,6 +1,6 @@
 // user/dto/filter-problems.dto.ts
-import { IsOptional, IsEnum, IsISO8601, IsInt, Min } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsOptional, IsEnum, IsISO8601, IsInt, Min, IsIn } from 'class-validator';
+import { Transform, Type } from 'class-transformer';
 import { ProgressStatus } from 'generated/prisma';
 
 export enum ProblemStatus {
@@ -33,4 +33,9 @@ export class FilterProblemsDto {
   @Min(1)
   @IsOptional()
   limit = 10;
+
+
+  @IsOptional()
+  @IsIn(['asc', 'desc'], { message: 'orderBy must be either asc or desc' })
+  orderBy?: 'asc' | 'desc';
 }
